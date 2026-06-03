@@ -1,0 +1,21 @@
+<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+  <div class="flex flex-col items-center m-4 gap-2">
+    <lucide-icon name="trophy" size="24" color="currentColor"></lucide-icon>
+    <div class="flex flex-col items-center">
+      <h2 class="text-lg font-medium">Mundial Predictions</h2>
+      <p>Iniciar sesion para predecir</p>
+    </div>
+  </div>
+
+  <label class="input validator">
+    <lucide-icon name="user" size="16" color="currentColor"></lucide-icon>
+    <input type="text" required placeholder="Usuario" [(ngModel)]="user" />
+  </label>
+
+  <label class="input validator mt-2">
+    <lucide-icon name="lock" size="16" color="currentColor"></lucide-icon>
+    <input type="password" required placeholder="Contraseña" [(ngModel)]="password" />
+  </label>
+
+  <button class="btn btn-neutral mt-4 w-full" (click)="logIn()">Login</button>
+</fieldset>
