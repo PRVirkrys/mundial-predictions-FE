@@ -33,10 +33,12 @@ export class Matches implements OnInit {
   }
 
   loadUserPredictions() {
-    this.predictionService.getPredictionsByUser(this.auth.getCurrentUserId()).subscribe((data: Prediction[]) => {
-      this.predictionByUser = data;
-      this.cdr.detectChanges();
-    });
+    this.predictionService
+      .getPredictionsByUser(this.auth.getCurrentUserId())
+      .subscribe((data: Prediction[]) => {
+        this.predictionByUser = data;
+        this.cdr.detectChanges();
+      });
   }
 
   getPredictionForMatch(matchId: number): Prediction | null {

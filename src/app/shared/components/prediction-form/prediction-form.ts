@@ -20,6 +20,9 @@ export class PredictionForm {
     private auth: Auth,
   ) {}
 
+  userHomeGoals: number | null = null;
+  userAwayGoals: number | null = null;
+
   @Input({ required: true }) match!: Match;
   @Input() prediction: Prediction | null = null;
   //poner output aqui de event saved para un toast o algo asi
@@ -29,16 +32,29 @@ export class PredictionForm {
   predictionModal!: ElementRef<HTMLDialogElement>;
 
   openModal(): void {
+    this.userHomeGoals = this.prediction?.predictedHomeGoals ?? null;
+    this.userAwayGoals = this.prediction?.predictedAwayGoals ?? null;
     this.predictionModal.nativeElement.showModal();
   }
-
-  userHomeGoals: number | null = null;
-  userAwayGoals: number | null = null;
 
   savePrediction() {
     if (this.userHomeGoals === null || this.userAwayGoals === null) {
       return; //esto saca de la funcion
       //aqui podrai agregar un mensaje de error con los inputs
+    } else if (this.prediction?.id != null) {
+      console.log(`${this.prediction}`);
+      this.predictionService
+        .updatePrediction(this.prediction.id, this.userHomeGoals, this.userAwayGoals)
+        .subscribe({
+          next: () => {
+            console.log(`Prediddcion actualizada`);
+            this.predictionModal.nativeElement.close();
+            this.predictionSaved.emit();
+          },
+          error: () => {
+            console.log('Error al actualizar la prediccion');
+          },
+        });
     } else {
       const user: User = this.auth.getCurrentUser();
       this.predictionService

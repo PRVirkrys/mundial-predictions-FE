@@ -19,9 +19,23 @@ export class PredictionService {
     return this.http.get<Prediction[]>(`${this.apiUrl}/predictions/${userId}`);
   }
 
-  createPrediction(userId: number, matchId: number, homeGoals: number, awayGoals: number): Observable<Prediction> {
+  createPrediction(
+    userId: number,
+    matchId: number,
+    homeGoals: number,
+    awayGoals: number,
+  ): Observable<Prediction> {
     const url = `${this.apiUrl}/predictions?userId=${userId}&matchId=${matchId}&homeGoals=${homeGoals}&awayGoals=${awayGoals}`;
     return this.http.post<Prediction>(url, null);
+  }
+
+  updatePrediction(
+    predictionId: number,
+    homeGoals: number,
+    awayGoals: number,
+  ): Observable<Prediction> {
+    const url = `${this.apiUrl}/predictions/${predictionId}?homeGoals=${homeGoals}&awayGoals=${awayGoals}`;
+    return this.http.put<Prediction>(url, null);
   }
 
   evaluatePredictions(matchId: number): Observable<void> {

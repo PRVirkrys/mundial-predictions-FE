@@ -54,7 +54,7 @@
             <button class="btn btn-outline btn-sm" (click)="predictionModal.openModal()">
               Predecir
             </button>
-          } @else {
+          } @else if (!isPlayed) {
             <button class="btn btn-ghost btn-sm" (click)="predictionModal.openModal()">
               Cambiar prediccion
             </button>
