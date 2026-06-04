@@ -13,9 +13,9 @@
         </div>
 
         <!--Card foooter-->
-        <div class="flex w-full items-center justify-between gap-2 w-full">
+        <div class="flex w-full items-center justify-between gap-2 w-full flex-wrap">
           <!-- Badges -->
-          <div class="flex flex-wrap items-center justify-between gap-2 w-full min-h-10">
+          <div class="flex flex-wrap items-center justify-between min-h-10">
             @if (!isPlayed) {
               @if (!isPredicted) {
                 <span class="badge badge-soft badge-warning badge-sm"> Pendiente de predecir </span>
@@ -59,15 +59,15 @@
               Cambiar prediccion
             </button>
           }
-
-          <app-prediction-form
-            #predictionModal
-            [match]="match"
-            [prediction]="prediction"
-            (predictionSaved)="onPredictionSaved()"
-          ></app-prediction-form>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<app-prediction-form
+  #predictionModal
+  [match]="match"
+  [prediction]="prediction"
+  (predictionSaved)="onPredictionSaved()"
+></app-prediction-form>

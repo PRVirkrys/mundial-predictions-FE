@@ -1,1 +1,36 @@
-<p>profile works!</p>
+<div class="max-w-2xl mx-auto flex flex-col gap-6">
+  <!-- Cabecera usuario -->
+  <div class="card bg-base-200 shadow-sm">
+    <div class="card-body items-center text-center p-6">
+      <div class="avatar avatar-placeholder mb-2">
+        <div class="bg-primary text-primary-content w-20 rounded-full">
+          <span class="text-2xl font-bold">{{ userName[0] }}</span>
+        </div>
+      </div>
+      <h2 class="text-xl font-bold">{{ userName }}</h2>
+      <div class="badge badge-primary badge-lg mt-1">58 puntos</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats stats-vertical sm:stats-horizontal w-full shadow border border-base-200">
+    <div class="stat place-items-center">
+      <div class="stat-title text-xs">Predicciones</div>
+      <div class="stat-value text-2xl">12</div>
+    </div>
+    <div class="stat place-items-center">
+      <div class="stat-title text-xs">Acertadas</div>
+      <div class="stat-value text-2xl text-success">7</div>
+    </div>
+    <div class="stat place-items-center">
+      <div class="stat-title text-xs">Exactas</div>
+      <div class="stat-value text-2xl text-warning">3</div>
+    </div>
+  </div>
+
+  <!-- Lista predicciones -->
+  <div>
+    <h3 class="text-base font-bold mb-3">Mis predicciones</h3>
+    <app-predictions-list></app-predictions-list>
+  </div>
+</div>

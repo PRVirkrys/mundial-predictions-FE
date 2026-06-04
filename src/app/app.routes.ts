@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       {
-        path: 'matches',
+        path: '',
         component: Matches,
         title: 'Matches',
       },

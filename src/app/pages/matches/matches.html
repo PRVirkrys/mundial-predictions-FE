@@ -1,9 +1,23 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-  @for (match of matches; track $index) {
-    <app-match-card
-      [match]="match"
-      [prediction]="getPredictionForMatch(match.id)"
-      (predictionSaved)="predictionSaved()"
-    ></app-match-card>
-  }
+<div class="max-w-4xl mx-auto">
+  <div class="mb-5">
+    <h1 class="text-2xl font-bold">Partidos</h1>
+    <p class="text-sm text-base-content/50 mt-1">Mundial 2026</p>
+  </div>
+
+  <!-- Tabs -->
+  <div role="tablist" class="tabs tabs-box mb-5">
+    <a role="tab" class="tab tab-active">Próximos</a>
+    <a role="tab" class="tab">Jugados</a>
+  </div>
+
+  <!-- Contenido de tab activo -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    @for (match of matches; track $index) {
+      <app-match-card
+        [match]="match"
+        [prediction]="getPredictionForMatch(match.id)"
+        (predictionSaved)="predictionSaved()"
+      ></app-match-card>
+    }
+  </div>
 </div>

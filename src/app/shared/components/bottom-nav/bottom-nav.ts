@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
-  selector: 'app-empty-state',
+  selector: 'app-bottom-nav',
   imports: [LucideAngularModule],
-  templateUrl: './empty-state.html',
-  styleUrl: './empty-state.css',
+  templateUrl: './bottom-nav.html',
+  styleUrl: './bottom-nav.css',
 })
-export class EmptyState {}
+export class BottomNav {}

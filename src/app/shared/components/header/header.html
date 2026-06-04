@@ -1,0 +1,78 @@
+<div class="navbar bg-base-300 shadow-md px-4">
+  <!-- LEFT: hamburger mobile -->
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle lg:hidden">
+        <lucide-icon name="menu" size="20" color="currentColor"></lucide-icon>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+      >
+        <li><a (click)="openMatches()">Partidos</a></li>
+        <li><a (click)="openRanking()">Ranking</a></li>
+      </ul>
+    </div>
+
+    <!-- Logo + título -->
+    <a class="flex items-center gap-2 ml-2">
+      <span class="text-2xl">⚽</span>
+      <span class="font-bold text-lg tracking-wide hidden sm:inline">Mundial 2026</span>
+    </a>
+  </div>
+
+  <!-- CENTER: nav desktop -->
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1 gap-1">
+      <li><a class="rounded-btn font-medium" (click)="openMatches()">Partidos</a></li>
+      <li><a class="rounded-btn font-medium" (click)="openRanking()">Ranking</a></li>
+    </ul>
+  </div>
+
+  <!-- RIGHT: acciones + avatar -->
+  <div class="navbar-end gap-1">
+    <!-- Notificaciones -->
+    <button class="btn btn-ghost btn-circle hidden sm:flex">
+      <div class="indicator">
+        <lucide-icon name="bell" size="20" color="currentColor"></lucide-icon>
+        <span class="badge badge-xs badge-primary indicator-item"></span>
+      </div>
+    </button>
+
+    <!-- Avatar dropdown user not logged in -->
+    @if (!isUserLoggedIn()) {
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar avatar-placeholder">
+          <div class="bg-primary text-primary-content w-10 rounded-full">
+            <span class="text-sm font-bold">{{ userName[0] }}</span>
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+        >
+          <li><a class="text-error">Iniciar sesión</a></li>
+        </ul>
+      </div>
+    } @else {
+      <!-- Avatar dropdown -->
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar avatar-placeholder">
+          <div class="bg-primary text-primary-content w-10 rounded-full">
+            <span class="text-sm font-bold">{{ userName[0] }}</span>
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+        >
+          <li>
+            <a class="justify-between" (click)="openProfile()"> Perfil </a>
+          </li>
+          <li><a>Ajustes</a></li>
+          <li><a class="text-error" (click)="logOut()">Cerrar sesión</a></li>
+        </ul>
+      </div>
+    }
+  </div>
+</div>
