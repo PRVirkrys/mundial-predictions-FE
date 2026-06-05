@@ -23,22 +23,27 @@ export class Matches implements OnInit {
     private auth: Auth,
   ) {}
 
+  userId: number | null = null;
+
   ngOnInit() {
     this.matchService.getMatches().subscribe((data: Match[]) => {
       this.matches = data;
       this.cdr.detectChanges();
     });
 
-    this.loadUserPredictions();
+    this.auth.refreshCurrentUser();
+    this.auth.currentUser$.subscribe((user) => {
+      this.userId = user ? user.id : null;
+      if (user) this.loadUserPredictions(user.id);
+      else this.predictionByUser = [];
+    });
   }
 
-  loadUserPredictions() {
-    this.predictionService
-      .getPredictionsByUser(this.auth.getCurrentUserId())
-      .subscribe((data: Prediction[]) => {
-        this.predictionByUser = data;
-        this.cdr.detectChanges();
-      });
+  loadUserPredictions(userId: number) {
+    this.predictionService.getPredictionsByUser(userId).subscribe((data: Prediction[]) => {
+      this.predictionByUser = data;
+      this.cdr.detectChanges();
+    });
   }
 
   getPredictionForMatch(matchId: number): Prediction | null {
@@ -46,6 +51,8 @@ export class Matches implements OnInit {
   }
 
   predictionSaved() {
-    this.loadUserPredictions();
+    if (this.userId) {
+      this.loadUserPredictions(this.userId);
+    }
   }
 }

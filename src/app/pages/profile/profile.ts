@@ -10,9 +10,15 @@ import { Auth } from '../../core/services/auth';
 })
 export class Profile {
   constructor(private auth: Auth) {}
-
   userName = '';
+  userScore = 0;
   ngOnInit() {
-    this.auth.userName$.subscribe((name) => (this.userName = name));
+    this.auth.refreshCurrentUser();
+    this.auth.currentUser$.subscribe(
+      (user) => (
+        (this.userName = user ? user.name || '' : ''),
+        (this.userScore = user ? user.totalScore || 0 : 0)
+      ),
+    );
   }
 }

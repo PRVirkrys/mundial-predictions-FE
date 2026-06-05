@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Auth } from '../../../core/services/auth';
 import { Router } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
+import { User } from '../../../core/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrl: './header.css',
 })
 export class Header {
+  currentUser: User | null = null;
   userName = '';
   constructor(
     private auth: Auth,
@@ -17,11 +19,14 @@ export class Header {
   ) {}
 
   ngOnInit() {
-    this.auth.userName$.subscribe((name) => (this.userName = name));
+    this.auth.refreshCurrentUser();
+    this.auth.currentUser$.subscribe(
+      (user) => ((this.currentUser = user), (this.userName = user ? user.name || '' : '')),
+    );
   }
 
   isUserLoggedIn(): boolean {
-    return !!this.auth.getCurrentUserId();
+    return !!this.currentUser;
   }
 
   logOut() {
