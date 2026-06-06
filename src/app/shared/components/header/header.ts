@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { Auth } from '../../../core/services/auth';
 import { Router } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { User } from '../../../core/models/user.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -16,13 +17,16 @@ export class Header {
   constructor(
     private auth: Auth,
     private router: Router,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit() {
     this.auth.refreshCurrentUser();
-    this.auth.currentUser$.subscribe(
-      (user) => ((this.currentUser = user), (this.userName = user ? user.name || '' : '')),
-    );
+    this.auth.currentUser$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
+        (user) => ((this.currentUser = user), (this.userName = user ? user.name || '' : '')),
+      );
   }
 
   isUserLoggedIn(): boolean {
